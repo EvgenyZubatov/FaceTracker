@@ -600,6 +600,13 @@ public class MainActivity extends AppCompatActivity implements BLEListener{
         // Write code here that receives the ultrasonic measurements from Arduino
         // and outputs them in your app. (You could also consider receiving the angle
         // of the servo motor but this would be more for debugging and is not necessary)
+        if (data[0] == 2) {
+            // distance to object in CM
+            int cm = data[1]*2;
+
+            TextView textViewBleStatus = (TextView)findViewById(R.id.textDistance);
+            textViewBleStatus.setText(String.format("%d", cm));
+        }
     }
 
     @Override

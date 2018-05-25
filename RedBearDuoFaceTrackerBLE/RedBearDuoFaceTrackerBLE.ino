@@ -90,6 +90,10 @@ static btstack_timer_source_t send_characteristic;
 static void bleSendDataTimerCallback(btstack_timer_source_t *ts); // function declaration for sending data callback
 int _sendDataFrequency = 200; // 200ms (how often to read the pins and transmit the data to Android)
 
+// distance to the object
+float cm = 0;
+float inches;
+
 void setup() {
   Serial.begin(115200);
   delay(5000);
@@ -142,8 +146,6 @@ void measureDistance() {
   unsigned long t1;
   unsigned long t2;
   unsigned long pulse_width;
-  float cm;
-  float inches;
 
   // Hold the trigger pin high for at least 10 us
   digitalWrite(TRIG_PIN, HIGH);
@@ -306,4 +308,16 @@ static void bleSendDataTimerCallback(btstack_timer_source_t *ts) {
   // Write code that uses the ultrasonic sensor and transmits this to Android
   // Example ultrasonic code here: https://github.com/jonfroehlich/CSE590Sp2018/tree/master/L06-Arduino/RedBearDuoUltrasonicRangeFinder
   // Also need to check if distance measurement < threshold and sound alarm
+  
+    send_data[0] = (0x02);
+    send_data[1] = (byte)(cm/2.0);
+    send_data[2] = (byte)(inches/2.0);
+    if (ble.attServerCanSendPacket()) {
+      ble.sendNotify(send_handle, send_data, SEND_MAX_LEN);
+      Serial.println("Sent distance data");
+    }
+  
+  // Restart timer.
+  ble.setTimer(ts, _sendDataFrequency);
+  ble.addTimer(ts);
 }

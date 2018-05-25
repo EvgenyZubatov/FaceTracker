@@ -40,5 +40,28 @@
         android:textColor="#FFFFFF"
         android:text="flip"/>
 
+    <TextView
+        android:id="@+id/textDistanceTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginVertical="4dp"
+        android:textSize="11dp"
+        android:textColor="#FFFFFF"
+        android:text="distance: "/>
+
+    <TextView
+        android:id="@+id/textDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="4dp"
+        android:textSize="11dp"
+        android:textColor="#FFFFFF"
+        android:text="0"/>
+
 
 </RelativeLayout>
